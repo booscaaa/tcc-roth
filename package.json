@@ -8,12 +8,20 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "moment": "^2.29.1",
+    "pdfmake": "^0.1.71",
+    "vue": "^2.6.11",
+    "vue2-google-maps": "^0.10.7",
+    "vuetify": "^2.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "vue-template-compiler": "^2.6.11"
+    "sass": "^1.32.0",
+    "sass-loader": "^10.0.0",
+    "vue-cli-plugin-vuetify": "~2.4.0",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.7.0"
   },
   "browserslist": [
     "> 1%",
