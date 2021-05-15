@@ -28,6 +28,10 @@ class HomeController {
 
   tipoDoPoste = [
     {
+      value: "(PM)",
+      nome: "Poste de madeira",
+    },
+    {
       value: "(DT)",
       nome: "Poste Duplo 'T'",
     },
@@ -89,19 +93,23 @@ class HomeController {
 
   configuracaoDaRede = [
     {
-      value: "11",
+      value: 1,
+      altura: "11",
       nome: "Rede Mista",
     },
     {
-      value: "9",
+      value: 2,
+      altura: "9",
       nome: "Baixa Tensão",
     },
     {
-      value: "11",
+      value: 3,
+      altura: "11",
       nome: "Média Tensão",
     },
     {
-      value: "12",
+      value: 4,
+      altura: "12",
       nome: "Equipamento ou Derivação",
     },
   ];
@@ -259,7 +267,7 @@ class HomeController {
       }
 
       this.dialog = false;
-      this.mounted()
+      this.mounted();
     }
   }
 
@@ -289,3 +297,14 @@ class HomeController {
 }
 
 export default HomeController;
+
+// Estrutura do poste
+// Tipo do poste
+// - pedir se o poste existe para habilitar o campo
+
+// configuração da rede
+//  - se mista habilita todos os campos
+
+// angulo media
+// angulo baixa
+// - habilita se o tipo for diferente de fim de rede

@@ -3,10 +3,12 @@
     <v-app-bar app fixed>
       TCC Roth
       <v-spacer></v-spacer>
-      <v-btn @click="controller.imprimir()">
+      <v-btn color="orange" class="mx-2 white--text" @click="controller.imprimir()">
+        <v-icon left>mdi-cloud-print</v-icon>
         Imprimir
       </v-btn>
-      <v-btn @click="controller.adicionar()">
+      <v-btn color="primary" @click="controller.adicionar()">
+        <v-icon left>mdi-plus</v-icon>
         Adicionar
       </v-btn>
     </v-app-bar>
