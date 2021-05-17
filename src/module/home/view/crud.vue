@@ -25,26 +25,13 @@
               cols="6"
               class="py-1"
             >
-              <v-text-field
-                v-model="controller.poste.latitude"
-                dense
-                :rules="[(v) => !!v || 'Preencha a latitude']"
-                label="Latitude"
-                @blur="controller.toUtm()"
-              ></v-text-field>
 
-            </v-col>
-            <v-col
-              cols="6"
-              class="py-1"
-            >
               <v-text-field
-                readonly
-                tabindex="-1"
                 v-model="controller.poste.latitudeUTM"
                 dense
                 :rules="[(v) => !!v || 'Preencha a latitude em UTM']"
                 label="Latitude (UTM)"
+                @blur="controller.toUtm()"
               ></v-text-field>
 
             </v-col>
@@ -53,10 +40,24 @@
               class="py-1"
             >
               <v-text-field
-                v-model="controller.poste.longitude"
+                readonly
+                tabindex="-1"
+                v-model="controller.poste.latitude"
                 dense
-                :rules="[(v) => !!v || 'Preencha a longitude']"
-                label="Logitude"
+                :rules="[(v) => !!v || 'Preencha a latitude']"
+                label="Latitude"
+              ></v-text-field>
+
+            </v-col>
+            <v-col
+              cols="6"
+              class="py-1"
+            >
+              <v-text-field
+                v-model="controller.poste.longitudeUTM"
+                dense
+                :rules="[(v) => !!v || 'Preencha a longitude em UTM']"
+                label="Logitude (UTM)"
                 @blur="controller.toUtm()"
               ></v-text-field>
             </v-col>
@@ -67,10 +68,11 @@
               <v-text-field
                 readonly
                 tabindex="-1"
-                v-model="controller.poste.longitudeUTM"
+                v-model="controller.poste.longitude"
                 dense
-                :rules="[(v) => !!v || 'Preencha a longitude em UTM']"
-                label="Logitude (UTM)"
+                :rules="[(v) => !!v || 'Preencha a longitude']"
+                label="Logitude"
+                
               ></v-text-field>
             </v-col>
           </v-row>

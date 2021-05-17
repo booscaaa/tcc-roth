@@ -55,6 +55,12 @@ class ReportUseCase {
           tipoEstaiPoste = 'ea3ea3'
         }
 
+        if (!tipoestai && esforcoposte.de < 300) {
+          tipoEstaiPoste = 'esd'
+        } else if (!tipoestai) {
+          tipoEstaiPoste = 'BC'
+        }
+
         let tiporede = poste.configuracaoDaRedeMediaTensao
         let caractponto = poste.caracteristicaPontoMediaTensao
         let angulomt = poste.anguloMediaTensao
@@ -109,14 +115,16 @@ class ReportUseCase {
           ? estruturabtOptions[
               `${tiporedebt ?? ''}${caractpontobt ?? ''}${angulobt ?? ''}`
             ]
-          : 'invalido'
+          : 'zero'
 
         console.log(estruturabt)
         let resultado = `${nponto} ${coordenadax} ${coordenaday} ${tipoposte} ${postepodre} ${linhaviva} ${tiposolo} ${acesso} ${altposte}${capposte}-${estruturamed}-${estruturabt}-${tipoEstaiPoste}`
         report.push([
-          (resultado += poste.posteExistente
-            ? `//${posteexistente}${estruturaexistente}`
-            : ''),
+          `${resultado} ${
+            poste.posteExistente
+              ? `//${posteexistente}${estruturaexistente}`
+              : ''
+          }\n`,
         ])
       }
 

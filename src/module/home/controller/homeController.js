@@ -289,6 +289,7 @@ class HomeController {
 
   cancelar() {
     this.dialog = false
+    this.zerar()
   }
 
   salvar() {
@@ -305,6 +306,8 @@ class HomeController {
 
       this.dialog = false
       this.mounted()
+
+      this.zerar()
     }
   }
 
@@ -333,16 +336,47 @@ class HomeController {
   }
 
   toUtm() {
-    if (this.poste.latitude && this.poste.longitude) {
+    if (this.poste.latitudeUTM && this.poste.longitudeUTM) {
       var utm = new utmObj()
 
-      const { Easting, Northing } = utm.convertLatLngToUtm(
-        this.poste.latitude,
-        this.poste.longitude,
-        1
+      const { lat, lng } = utm.convertUtmToLatLng(
+        parseFloat(this.poste.latitudeUTM),
+        parseFloat(this.poste.longitudeUTM),
+        23,
+        'S'
       )
-      this.poste.latitudeUTM = Easting
-      this.poste.longitudeUTM = Northing
+
+      this.poste.latitude = lat
+      this.poste.longitude = lng
+    }
+  }
+
+  zerar() {
+    this.poste = {
+      numero: null,
+      latitude: null,
+      latitudeUTM: null,
+      longitude: null,
+      longitudeUTM: null,
+      extrutura: null,
+      postePodre: false,
+      posteEstai: false,
+      linhaViva: false,
+      tipoDoPoste: null,
+      tipoDoPosteRede: null,
+      tipoDoSolo: null,
+      tipoDoAcesso: null,
+      configuracaoDaRede: {
+        value: null,
+      },
+      esforcoDoPoste: null,
+      configuracaoDaRedeMediaTensao: null,
+      configuracaoDaRedeBaixaTensao: null,
+      caracteristicaPontoMediaTensao: null,
+      caracteristicaPontoBaixaTensao: null,
+      anguloMediaTensao: null,
+      anguloBaixaTensao: null,
+      posteExistente: false,
     }
   }
 }
