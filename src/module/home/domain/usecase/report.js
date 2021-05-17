@@ -124,7 +124,7 @@ class ReportUseCase {
             poste.posteExistente
               ? `//${posteexistente}${estruturaexistente}`
               : ''
-          }\n`,
+          }`
         ])
       }
 
@@ -198,7 +198,7 @@ class ReportUseCase {
       // }
       // pdfMake.createPdf(docDefinition).open()
 
-      this._download(report, 'postes.txt', 'text/plain')
+      this._download(report.join('\n'), 'postes.txt', 'text/plain')
     } catch (error) {
       throw error
     }

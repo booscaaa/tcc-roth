@@ -342,8 +342,8 @@ class HomeController {
       const { lat, lng } = utm.convertUtmToLatLng(
         parseFloat(this.poste.latitudeUTM),
         parseFloat(this.poste.longitudeUTM),
-        23,
-        'S'
+        22,
+        'J'
       )
 
       this.poste.latitude = lat
