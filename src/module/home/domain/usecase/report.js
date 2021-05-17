@@ -11,30 +11,34 @@ class ReportUseCase {
         let nponto = poste.numero;
         let coordenadax = poste.latitude;
         let coordenaday = poste.longitude;
-        let tipoposte = poste.tipoDoPosteRede;
+        let tipoposte = poste.tipoDoPosteRede += poste.posteExistente ? 'E' : 'I';
         let postepodre = poste.postePodre ? "x" : "-";
         let linhaviva = poste.linhaViva ? "-" : "x";
         let tiposolo = poste.tipoDoSolo;
         let acesso = poste.tipoDoAcesso;
-        let altposte = poste.configuracaoDaRede;
-        let capposte = poste.esforcoDoPoste;
+        let altposte = poste.configuracaoDaRede.altura;
+        let capposte = poste.esforcoDoPoste.value;
         let estruturaexistente = poste.extrutura;
         let posteexistente = poste.tipoDoPoste;
         let tipoestai = poste.posteEstai;
         let esforcoposte = poste.esforcoDoPoste;
-        //if(tipoestai == 'sim') && (esforcoposte<300){
-        // tipoestai == 'esd'
-        // }else if(tipoestai == 'sim') && (1015>esforcoposte>300){
-        // tipoestai == 'ea1'
-        // }else if (tipoestai == 'sim') && (1710>esforcoposte>1015){
-        // tipoestai == 'ea2'
-        // }else if (tipoestai == 'sim') && (2310>esforcoposte>1710){
-        // tipoestai == 'ea3'
-        // }else if (tipoestai == 'sim') && (2900>esforcoposte>2310){
-        // tipoestai == 'ea2ea2'
-        // }else if (tipoestai == 'sim') && (3940>esforcoposte>2900){
-        // tipoestai == 'ea3ea3'
-        // }
+
+        let tipoEstaiPoste = 'esd'
+
+        if (tipoestai && esforcoposte.ate < 1015 && esforcoposte.de > 300) {
+          tipoEstaiPoste = 'ea1'
+        } else if (tipoestai && esforcoposte.ate < 1710 && esforcoposte.de > 1015) {
+          tipoEstaiPoste = 'ea2'
+        }
+        else if (tipoestai && esforcoposte.ate < 1710 && esforcoposte.de > 1015) {
+          tipoEstaiPoste = 'ea3'
+        }
+        else if (tipoestai && esforcoposte.ate < 2900 && esforcoposte.de > 2310) {
+          tipoEstaiPoste = 'ea2ea2'
+        }
+        else if (tipoestai && esforcoposte.ate < 3940 && esforcoposte.de > 2900) {
+          tipoEstaiPoste = 'ea3ea3'
+        }
 
         let tiporede = poste.configuracaoDaRedeMediaTensao;
         let caractponto = poste.caracteristicaPontoMediaTensao;
@@ -88,8 +92,10 @@ class ReportUseCase {
           ? estruturabtOptions[`${tiporedebt}${caractpontobt}${angulobt}`]
           : "invalido";
 
+        let resultado = `${nponto} ${coordenadax} ${coordenaday} ${tipoposte} ${postepodre} ${linhaviva} ${tiposolo} ${acesso} ${altposte}${capposte}-${estruturamed}-${estruturabt}-${tipoEstaiPoste}`
+        debugger
         report.push([
-          `${nponto} ${coordenadax} ${coordenaday} ${tipoposte} ${postepodre} ${linhaviva} ${tiposolo} ${acesso} ${altposte}${capposte}-${estruturamed}-${estruturabt}-${tipoestai}//${posteexistente}${estruturaexistente}`,
+          resultado += poste.posteExistente ? `//${posteexistente}${estruturaexistente}` : '',
         ]);
       }
 
@@ -97,7 +103,7 @@ class ReportUseCase {
 
       var docDefinition = {
         pageMargins: [25, 75, 25, 35],
-        header: function(currentPage, pageCount, pageSize) {
+        header: function (currentPage, pageCount, pageSize) {
           return [
             {
               margin: 10,
@@ -118,7 +124,7 @@ class ReportUseCase {
             // },
           ];
         },
-        footer: function(currentPage, pageCount) {
+        footer: function (currentPage, pageCount) {
           return {
             margin: 10,
             columns: [
@@ -145,7 +151,7 @@ class ReportUseCase {
           {
             margin: [0, 0, 0, 10],
             layout: {
-              fillColor: function(rowIndex, node, columnIndex) {
+              fillColor: function (rowIndex, node, columnIndex) {
                 if (rowIndex == 0) {
                   return null;
                 }

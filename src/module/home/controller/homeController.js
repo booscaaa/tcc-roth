@@ -16,7 +16,9 @@ class HomeController {
     tipoDoPosteRede: null,
     tipoDoSolo: null,
     tipoDoAcesso: null,
-    configuracaoDaRede: null,
+    configuracaoDaRede: {
+      value: null
+    },
     esforcoDoPoste: null,
     configuracaoDaRedeMediaTensao: null,
     configuracaoDaRedeBaixaTensao: null,
@@ -24,9 +26,27 @@ class HomeController {
     caracteristicaPontoBaixaTensao: null,
     anguloMediaTensao: null,
     anguloBaixaTensao: null,
+    posteExistente: false
   };
 
+  //existente: E, se não: I
+
   tipoDoPoste = [
+    {
+      value: "PMA",
+      nome: "Poste de madeira",
+    },
+    {
+      value: "PDT",
+      nome: "Poste Duplo 'T'",
+    },
+    {
+      value: "PCO",
+      nome: "Poste Tronco Cônico",
+    },
+  ];
+
+  tipoDoPosteF = [
     {
       value: "(PM)",
       nome: "Poste de madeira",
@@ -116,30 +136,44 @@ class HomeController {
 
   esforcoDoPoste = [
     {
+      de: 0,
+      ate: 300,
       value: "(3)",
       nome: "Entre 0-300 daN",
     },
     {
+      de: 301,
+      ate: 400,
       value: "(4)",
       nome: "Entre 301-400 daN",
     },
     {
+      de: 401,
+      ate: 601,
       value: "(6)",
       nome: "Entre 401-600 daN",
     },
     {
+      de: 601,
+      ate: 1000,
       value: "(10)",
       nome: "Entre 601-1000 daN",
     },
     {
+      de: 1001,
+      ate: 1500,
       value: "(15)",
       nome: "Entre 1001-1500 daN",
     },
     {
+      de: 1501,
+      ate: 2000,
       value: "(20)",
       nome: "Entre 1501-2000 daN",
     },
     {
+      de: 2001,
+      ate: 3000,
       value: "(30)",
       nome: "Entre 2001-3000 daN",
     },

@@ -1,15 +1,14 @@
 <template>
   <v-dialog scrollable v-model="controller.dialog" persistent width="600">
     <v-card>
-      <v-card-title class="headline">
-        Cadastro
-      </v-card-title>
+      <v-card-title class="headline"> Cadastro </v-card-title>
       <v-card-text>
         <v-form ref="form">
           <v-divider></v-divider>
           <div>
             <h3 class="headline font-weight-bold">PADRÃO FECOERGS</h3>
           </div>
+
           <v-text-field
             v-model="controller.poste.numero"
             dense
@@ -20,30 +19,38 @@
             v-model="controller.poste.latitude"
             dense
             :rules="[(v) => !!v || 'Preencha a latitude']"
-            label="Latitude"
+            label="Latitude (UTM)"
           ></v-text-field>
           <v-text-field
             v-model="controller.poste.longitude"
             dense
             :rules="[(v) => !!v || 'Preencha a longitude']"
-            label="Logitude"
+            label="Logitude (UTM)"
           ></v-text-field>
+          <v-checkbox
+            v-model="controller.poste.posteExistente"
+            dense
+            label="Poste existente?"
+          ></v-checkbox>
           <v-text-field
+            v-if="controller.poste.posteExistente"
             v-model="controller.poste.extrutura"
             dense
             :rules="[(v) => !!v || 'Preencha a estrutura do poste']"
             label="Estrutura do poste"
           ></v-text-field>
           <v-select
+            v-if="controller.poste.posteExistente"
             dense
             v-model="controller.poste.tipoDoPoste"
-            :items="controller.tipoDoPoste"
+            :items="controller.tipoDoPosteF"
             item-text="nome"
             item-value="value"
             :rules="[(v) => !!v || 'Preencha o tipo do poste']"
             label="Tipo do poste"
           ></v-select>
           <v-checkbox
+            v-if="controller.poste.posteExistente"
             v-model="controller.poste.postePodre"
             dense
             label="Poste podre"
@@ -96,15 +103,6 @@
             label="Tipo do acesso"
           ></v-select>
           <v-select
-            v-model="controller.poste.configuracaoDaRede"
-            :items="controller.configuracaoDaRede"
-            item-text="nome"
-            item-value="value"
-            :rules="[(v) => !!v || 'Preencha a configuração da rede']"
-            dense
-            label="Configuração da rede"
-          ></v-select>
-          <v-select
             v-model="controller.poste.esforcoDoPoste"
             :items="controller.esforcoDoPoste"
             item-text="nome"
@@ -112,11 +110,22 @@
             dense
             :rules="[(v) => !!v || 'Preencha o esforço do poste']"
             label="Esforço no Poste (daN)"
+            return-object
+          ></v-select>
+          <v-select
+            v-model="controller.poste.configuracaoDaRede"
+            :items="controller.configuracaoDaRede"
+            item-text="nome"
+            item-value="value"
+            :rules="[(v) => !!v || 'Preencha a configuração da rede']"
+            dense
+            label="Configuração da rede"
+            return-object
           ></v-select>
           <div
             v-if="
-              controller.poste.configuracaoDaRede == 1 ||
-                controller.poste.configuracaoDaRede == 3
+              controller.poste.configuracaoDaRede.value == 1 ||
+              controller.poste.configuracaoDaRede.value == 3
             "
           >
             <v-select
@@ -142,6 +151,9 @@
               label="Caracteristica do Ponto Media Tensão"
             ></v-select>
             <v-select
+              v-if="
+                controller.poste.caracteristicaPontoMediaTensao !== 'fimderede'
+              "
               v-model="controller.poste.anguloMediaTensao"
               :items="controller.anguloMediaTensao"
               item-text="nome"
@@ -153,8 +165,8 @@
           </div>
           <div
             v-if="
-              controller.poste.configuracaoDaRede == 1 ||
-                controller.poste.configuracaoDaRede == 2
+              controller.poste.configuracaoDaRede.value == 1 ||
+              controller.poste.configuracaoDaRede.value == 2
             "
           >
             <v-select
@@ -180,6 +192,9 @@
               label="Caracteristica do Ponto Baixa Tensão"
             ></v-select>
             <v-select
+              v-if="
+                controller.poste.caracteristicaPontoBaixaTensao !== 'fimderedebt'
+              "
               v-model="controller.poste.anguloBaixaTensao"
               :items="controller.anguloBaixaTensao"
               item-text="nome"
