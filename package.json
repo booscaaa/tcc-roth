@@ -10,6 +10,7 @@
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
     "pdfmake": "^0.1.71",
+    "utm-latlng": "^1.0.6",
     "vue": "^2.6.11",
     "vue2-google-maps": "^0.10.7",
     "vuetify": "^2.4.0"

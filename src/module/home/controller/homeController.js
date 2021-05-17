@@ -1,13 +1,16 @@
+import utmObj from 'utm-latlng'
 class HomeController {
-  center = {};
-  postes = [];
+  center = {}
+  postes = []
 
-  crud = null;
+  crud = null
 
   poste = {
     numero: null,
     latitude: null,
+    latitudeUTM: null,
     longitude: null,
+    longitudeUTM: null,
     extrutura: null,
     postePodre: false,
     posteEstai: false,
@@ -17,7 +20,7 @@ class HomeController {
     tipoDoSolo: null,
     tipoDoAcesso: null,
     configuracaoDaRede: {
-      value: null
+      value: null,
     },
     esforcoDoPoste: null,
     configuracaoDaRedeMediaTensao: null,
@@ -26,287 +29,287 @@ class HomeController {
     caracteristicaPontoBaixaTensao: null,
     anguloMediaTensao: null,
     anguloBaixaTensao: null,
-    posteExistente: false
-  };
+    posteExistente: false,
+  }
 
   //existente: E, se não: I
 
   tipoDoPoste = [
     {
-      value: "PMA",
-      nome: "Poste de madeira",
+      value: 'PMA',
+      nome: 'Poste de madeira',
     },
     {
-      value: "PDT",
+      value: 'PDT',
       nome: "Poste Duplo 'T'",
     },
     {
-      value: "PCO",
-      nome: "Poste Tronco Cônico",
+      value: 'PCO',
+      nome: 'Poste Tronco Cônico',
     },
-  ];
+  ]
 
   tipoDoPosteF = [
     {
-      value: "(PM)",
-      nome: "Poste de madeira",
+      value: '(PM)',
+      nome: 'Poste de madeira',
     },
     {
-      value: "(DT)",
+      value: '(DT)',
       nome: "Poste Duplo 'T'",
     },
     {
-      value: "(TC)",
-      nome: "Poste Tronco Cônico",
+      value: '(TC)',
+      nome: 'Poste Tronco Cônico',
     },
-  ];
+  ]
 
   tipoDoSolo = [
     {
-      value: "A",
-      nome: "Fácil Escavação",
+      value: 'A',
+      nome: 'Fácil Escavação',
     },
     {
-      value: "B",
-      nome: "Pequenos Pedregulhos",
+      value: 'B',
+      nome: 'Pequenos Pedregulhos',
     },
     {
-      value: "C",
-      nome: "Solo Rochoso",
+      value: 'C',
+      nome: 'Solo Rochoso',
     },
-  ];
+  ]
 
   tipoDoAcesso = [
     {
-      value: "1",
-      nome: "Lavoura",
+      value: '1',
+      nome: 'Lavoura',
     },
     {
-      value: "2",
-      nome: "Campo",
+      value: '2',
+      nome: 'Campo',
     },
     {
-      value: "3",
-      nome: "Estrada",
+      value: '3',
+      nome: 'Estrada',
     },
     {
-      value: "4",
-      nome: "Pátio",
+      value: '4',
+      nome: 'Pátio',
     },
     {
-      value: "5",
-      nome: "Rua",
+      value: '5',
+      nome: 'Rua',
     },
     {
-      value: "6",
-      nome: "Calçada",
+      value: '6',
+      nome: 'Calçada',
     },
     {
-      value: "7",
-      nome: "Mato",
+      value: '7',
+      nome: 'Mato',
     },
     {
-      value: "8",
-      nome: "Sem Acesso",
+      value: '8',
+      nome: 'Sem Acesso',
     },
-  ];
+  ]
 
   configuracaoDaRede = [
     {
       value: 1,
-      altura: "11",
-      nome: "Rede Mista",
+      altura: '11',
+      nome: 'Rede Mista',
     },
     {
       value: 2,
-      altura: "9",
-      nome: "Baixa Tensão",
+      altura: '9',
+      nome: 'Baixa Tensão',
     },
     {
       value: 3,
-      altura: "11",
-      nome: "Média Tensão",
+      altura: '11',
+      nome: 'Média Tensão',
     },
     {
       value: 4,
-      altura: "12",
-      nome: "Equipamento ou Derivação",
+      altura: '12',
+      nome: 'Equipamento ou Derivação',
     },
-  ];
+  ]
 
   esforcoDoPoste = [
     {
       de: 0,
       ate: 300,
-      value: "(3)",
-      nome: "Entre 0-300 daN",
+      value: '(3)',
+      nome: 'Entre 0-300 daN',
     },
     {
       de: 301,
       ate: 400,
-      value: "(4)",
-      nome: "Entre 301-400 daN",
+      value: '(4)',
+      nome: 'Entre 301-400 daN',
     },
     {
       de: 401,
       ate: 601,
-      value: "(6)",
-      nome: "Entre 401-600 daN",
+      value: '(6)',
+      nome: 'Entre 401-600 daN',
     },
     {
       de: 601,
       ate: 1000,
-      value: "(10)",
-      nome: "Entre 601-1000 daN",
+      value: '(10)',
+      nome: 'Entre 601-1000 daN',
     },
     {
       de: 1001,
       ate: 1500,
-      value: "(15)",
-      nome: "Entre 1001-1500 daN",
+      value: '(15)',
+      nome: 'Entre 1001-1500 daN',
     },
     {
       de: 1501,
       ate: 2000,
-      value: "(20)",
-      nome: "Entre 1501-2000 daN",
+      value: '(20)',
+      nome: 'Entre 1501-2000 daN',
     },
     {
       de: 2001,
       ate: 3000,
-      value: "(30)",
-      nome: "Entre 2001-3000 daN",
+      value: '(30)',
+      nome: 'Entre 2001-3000 daN',
     },
-  ];
+  ]
 
   configuracaoDaRedeMediaTensao = [
     {
-      value: "monomt",
-      nome: "Monofásica",
+      value: 'monomt',
+      nome: 'Monofásica',
     },
     {
-      value: "bimt",
-      nome: "Bifásica",
+      value: 'bimt',
+      nome: 'Bifásica',
     },
     {
-      value: "trimt",
-      nome: "Trifásica",
+      value: 'trimt',
+      nome: 'Trifásica',
     },
-  ];
+  ]
 
   configuracaoDaRedeBaixaTensao = [
     {
-      value: "monobt",
-      nome: "Monofásica",
+      value: 'monobt',
+      nome: 'Monofásica',
     },
     {
-      value: "bibt",
-      nome: "Bifásica",
+      value: 'bibt',
+      nome: 'Bifásica',
     },
     {
-      value: "tribt",
-      nome: "Trifásica",
+      value: 'tribt',
+      nome: 'Trifásica',
     },
-  ];
+  ]
 
   caracteristicaPontoMediaTensao = [
     {
-      value: "fimderede",
-      nome: "Fim de Rede",
+      value: 'fimderede',
+      nome: 'Fim de Rede',
     },
     {
-      value: "passante",
-      nome: "Passante/Ancoragem",
+      value: 'passante',
+      nome: 'Passante/Ancoragem',
     },
-  ];
+  ]
 
   caracteristicaPontoBaixaTensao = [
     {
-      value: "fimderedebt",
-      nome: "Fim de Rede",
+      value: 'fimderedebt',
+      nome: 'Fim de Rede',
     },
     {
-      value: "passantebt",
-      nome: "Passante",
+      value: 'passantebt',
+      nome: 'Passante',
     },
-  ];
+  ]
 
   anguloMediaTensao = [
     {
-      value: "1",
-      nome: "Entre 0-16 Graus",
+      value: '1',
+      nome: 'Entre 0-16 Graus',
     },
     {
-      value: "2",
-      nome: "Entre 17-35 Graus",
+      value: '2',
+      nome: 'Entre 17-35 Graus',
     },
     {
-      value: "3",
-      nome: "Entre 36-60 Graus",
+      value: '3',
+      nome: 'Entre 36-60 Graus',
     },
     {
-      value: "4",
-      nome: "Entre 61-90 Graus",
+      value: '4',
+      nome: 'Entre 61-90 Graus',
     },
-  ];
+  ]
 
   anguloBaixaTensao = [
     {
-      value: "1",
-      nome: "Entre 0-35 Graus",
+      value: '1',
+      nome: 'Entre 0-35 Graus',
     },
     {
-      value: "2",
-      nome: "Entre 36-60 Graus",
+      value: '2',
+      nome: 'Entre 36-60 Graus',
     },
     {
-      value: "3",
-      nome: "Entre 61-90 Graus",
+      value: '3',
+      nome: 'Entre 61-90 Graus',
     },
-  ];
+  ]
 
-  dialog = false;
+  dialog = false
 
   constructor(context, report) {
-    this.report = report;
-    this.context = context;
+    this.report = report
+    this.context = context
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.center = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
-        };
-      });
+        }
+      })
     }
   }
 
   adicionar() {
-    this.dialog = true;
+    this.dialog = true
   }
 
   cancelar() {
-    this.dialog = false;
+    this.dialog = false
   }
 
   salvar() {
     if (this.crud.$refs.form.validate()) {
-      const localPostes = localStorage.getItem("postes");
+      const localPostes = localStorage.getItem('postes')
 
       if (localPostes) {
-        const postes = JSON.parse(localPostes);
-        postes.push(this.poste);
-        localStorage.setItem("postes", JSON.stringify(postes));
+        const postes = JSON.parse(localPostes)
+        postes.push(this.poste)
+        localStorage.setItem('postes', JSON.stringify(postes))
       } else {
-        localStorage.setItem("postes", JSON.stringify([this.poste]));
+        localStorage.setItem('postes', JSON.stringify([this.poste]))
       }
 
-      this.dialog = false;
-      this.mounted();
+      this.dialog = false
+      this.mounted()
     }
   }
 
   mounted() {
-    const localPostes = localStorage.getItem("postes");
+    const localPostes = localStorage.getItem('postes')
 
     if (localPostes) {
       this.postes = JSON.parse(localPostes).map((poste) => {
@@ -316,21 +319,35 @@ class HomeController {
             lat: parseFloat(poste.latitude),
             lng: parseFloat(poste.longitude),
           },
-        };
-      });
+        }
+      })
     }
   }
 
   imprimir() {
-    this.report.call(this.postes);
+    this.report.call(this.postes)
   }
 
   setContext(context) {
-    this.crud = context;
+    this.crud = context
+  }
+
+  toUtm() {
+    if (this.poste.latitude && this.poste.longitude) {
+      var utm = new utmObj()
+
+      const { Easting, Northing } = utm.convertLatLngToUtm(
+        this.poste.latitude,
+        this.poste.longitude,
+        1
+      )
+      this.poste.latitudeUTM = Easting
+      this.poste.longitudeUTM = Northing
+    }
   }
 }
 
-export default HomeController;
+export default HomeController
 
 // Estrutura do poste
 // Tipo do poste
