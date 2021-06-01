@@ -1,5 +1,10 @@
 <template>
-  <v-dialog scrollable v-model="controller.dialog" persistent width="600">
+  <v-dialog
+    scrollable
+    v-model="controller.dialog"
+    persistent
+    width="600"
+  >
     <v-card>
       <v-card-title class="headline"> Cadastro </v-card-title>
       <v-card-text>
@@ -15,18 +20,62 @@
             :rules="[(v) => !!v || 'Preencha o número do ponto']"
             label="Número do ponto"
           ></v-text-field>
-          <v-text-field
-            v-model="controller.poste.latitude"
-            dense
-            :rules="[(v) => !!v || 'Preencha a latitude']"
-            label="Latitude (UTM)"
-          ></v-text-field>
-          <v-text-field
-            v-model="controller.poste.longitude"
-            dense
-            :rules="[(v) => !!v || 'Preencha a longitude']"
-            label="Logitude (UTM)"
-          ></v-text-field>
+          <v-row class="pt-4">
+            <v-col
+              cols="6"
+              class="py-1"
+            >
+
+              <v-text-field
+                v-model="controller.poste.latitudeUTM"
+                dense
+                :rules="[(v) => !!v || 'Preencha a latitude em UTM']"
+                label="Latitude (UTM)"
+                @blur="controller.toUtm()"
+              ></v-text-field>
+
+            </v-col>
+            <v-col
+              cols="6"
+              class="py-1"
+            >
+              <v-text-field
+                readonly
+                tabindex="-1"
+                v-model="controller.poste.latitude"
+                dense
+                :rules="[(v) => !!v || 'Preencha a latitude']"
+                label="Latitude"
+              ></v-text-field>
+
+            </v-col>
+            <v-col
+              cols="6"
+              class="py-1"
+            >
+              <v-text-field
+                v-model="controller.poste.longitudeUTM"
+                dense
+                :rules="[(v) => !!v || 'Preencha a longitude em UTM']"
+                label="Logitude (UTM)"
+                @blur="controller.toUtm()"
+              ></v-text-field>
+            </v-col>
+            <v-col
+              cols="6"
+              class="py-1"
+            >
+              <v-text-field
+                readonly
+                tabindex="-1"
+                v-model="controller.poste.longitude"
+                dense
+                :rules="[(v) => !!v || 'Preencha a longitude']"
+                label="Logitude"
+                
+              ></v-text-field>
+            </v-col>
+          </v-row>
           <v-checkbox
             v-model="controller.poste.posteExistente"
             dense
@@ -72,8 +121,8 @@
                 v-model="controller.poste.linhaViva"
                 dense
                 label="Possui acesso linha viva"
-              ></v-checkbox
-            ></v-col>
+              ></v-checkbox>
+            </v-col>
           </v-row>
           <v-select
             v-model="controller.poste.tipoDoPosteRede"
@@ -122,12 +171,10 @@
             label="Configuração da rede"
             return-object
           ></v-select>
-          <div
-            v-if="
+          <div v-if="
               controller.poste.configuracaoDaRede.value == 1 ||
               controller.poste.configuracaoDaRede.value == 3
-            "
-          >
+            ">
             <v-select
               v-model="controller.poste.configuracaoDaRedeMediaTensao"
               :items="controller.configuracaoDaRedeMediaTensao"
@@ -163,12 +210,10 @@
               label="Ângulo no Ponto Média Tensão"
             ></v-select>
           </div>
-          <div
-            v-if="
+          <div v-if="
               controller.poste.configuracaoDaRede.value == 1 ||
               controller.poste.configuracaoDaRede.value == 2
-            "
-          >
+            ">
             <v-select
               v-model="controller.poste.configuracaoDaRedeBaixaTensao"
               :items="controller.configuracaoDaRedeBaixaTensao"
@@ -208,13 +253,20 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn @click="controller.cancelar()" color="red" text
-          ><v-icon left>mdi-close</v-icon>cancelar</v-btn
+        <v-btn
+          @click="controller.cancelar()"
+          color="red"
+          text
         >
+          <v-icon left>mdi-close</v-icon>cancelar
+        </v-btn>
         <v-spacer></v-spacer>
-        <v-btn @click="controller.salvar()" color="primary"
-          ><v-icon left>mdi-content-save</v-icon>salvar</v-btn
+        <v-btn
+          @click="controller.salvar()"
+          color="primary"
         >
+          <v-icon left>mdi-content-save</v-icon>salvar
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
