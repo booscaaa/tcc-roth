@@ -328,6 +328,12 @@ class HomeController {
   setContext(context) {
     this.crud = context;
   }
+
+  limpar() {
+    localStorage.clear()
+
+    this.mounted()
+  }
 }
 
 export default HomeController;
