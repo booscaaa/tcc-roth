@@ -1,10 +1,5 @@
 <template>
-  <v-dialog
-    scrollable
-    v-model="controller.dialog"
-    persistent
-    width="600"
-  >
+  <v-dialog scrollable v-model="controller.dialog" persistent width="600">
     <v-card>
       <v-card-title class="headline"> Cadastro </v-card-title>
       <v-card-text>
@@ -21,11 +16,7 @@
             label="Número do ponto"
           ></v-text-field>
           <v-row class="pt-4">
-            <v-col
-              cols="6"
-              class="py-1"
-            >
-
+            <v-col cols="6" class="py-1">
               <v-text-field
                 v-model="controller.poste.latitudeUTM"
                 dense
@@ -33,12 +24,8 @@
                 label="Latitude (UTM)"
                 @blur="controller.toUtm()"
               ></v-text-field>
-
             </v-col>
-            <v-col
-              cols="6"
-              class="py-1"
-            >
+            <v-col cols="6" class="py-1">
               <v-text-field
                 readonly
                 tabindex="-1"
@@ -47,12 +34,8 @@
                 :rules="[(v) => !!v || 'Preencha a latitude']"
                 label="Latitude"
               ></v-text-field>
-
             </v-col>
-            <v-col
-              cols="6"
-              class="py-1"
-            >
+            <v-col cols="6" class="py-1">
               <v-text-field
                 v-model="controller.poste.longitudeUTM"
                 dense
@@ -61,10 +44,7 @@
                 @blur="controller.toUtm()"
               ></v-text-field>
             </v-col>
-            <v-col
-              cols="6"
-              class="py-1"
-            >
+            <v-col cols="6" class="py-1">
               <v-text-field
                 readonly
                 tabindex="-1"
@@ -72,10 +52,27 @@
                 dense
                 :rules="[(v) => !!v || 'Preencha a longitude']"
                 label="Logitude"
-                
               ></v-text-field>
             </v-col>
           </v-row>
+          <v-select
+            v-model="controller.poste.tipoDoSolo"
+            :items="controller.tipoDoSolo"
+            item-text="nome"
+            item-value="value"
+            dense
+            :rules="[(v) => !!v || 'Preencha o tipo do solo']"
+            label="Tipo do solo"
+          ></v-select>
+          <v-select
+            v-model="controller.poste.tipoDoAcesso"
+            :items="controller.tipoDoAcesso"
+            item-text="nome"
+            item-value="value"
+            dense
+            :rules="[(v) => !!v || 'Preencha o tipo do acesso']"
+            label="Tipo do acesso"
+          ></v-select>
           <v-checkbox
             v-model="controller.poste.posteExistente"
             dense
@@ -116,13 +113,13 @@
                 label="Poste Estai"
               ></v-checkbox>
             </v-col>
-            <v-col>
+            <!-- <v-col>
               <v-checkbox
                 v-model="controller.poste.linhaViva"
                 dense
                 label="Possui acesso linha viva"
               ></v-checkbox>
-            </v-col>
+            </v-col> -->
           </v-row>
           <v-select
             v-model="controller.poste.tipoDoPosteRede"
@@ -132,24 +129,6 @@
             item-value="value"
             :rules="[(v) => !!v || 'Preencha o tipo do poste']"
             label="Tipo do poste"
-          ></v-select>
-          <v-select
-            v-model="controller.poste.tipoDoSolo"
-            :items="controller.tipoDoSolo"
-            item-text="nome"
-            item-value="value"
-            dense
-            :rules="[(v) => !!v || 'Preencha o tipo do solo']"
-            label="Tipo do solo"
-          ></v-select>
-          <v-select
-            v-model="controller.poste.tipoDoAcesso"
-            :items="controller.tipoDoAcesso"
-            item-text="nome"
-            item-value="value"
-            dense
-            :rules="[(v) => !!v || 'Preencha o tipo do acesso']"
-            label="Tipo do acesso"
           ></v-select>
           <v-select
             v-model="controller.poste.esforcoDoPoste"
@@ -171,10 +150,12 @@
             label="Configuração da rede"
             return-object
           ></v-select>
-          <div v-if="
+          <div
+            v-if="
               controller.poste.configuracaoDaRede.value == 1 ||
               controller.poste.configuracaoDaRede.value == 3
-            ">
+            "
+          >
             <v-select
               v-model="controller.poste.configuracaoDaRedeMediaTensao"
               :items="controller.configuracaoDaRedeMediaTensao"
@@ -210,10 +191,12 @@
               label="Ângulo no Ponto Média Tensão"
             ></v-select>
           </div>
-          <div v-if="
+          <div
+            v-if="
               controller.poste.configuracaoDaRede.value == 1 ||
               controller.poste.configuracaoDaRede.value == 2
-            ">
+            "
+          >
             <v-select
               v-model="controller.poste.configuracaoDaRedeBaixaTensao"
               :items="controller.configuracaoDaRedeBaixaTensao"
@@ -238,7 +221,8 @@
             ></v-select>
             <v-select
               v-if="
-                controller.poste.caracteristicaPontoBaixaTensao !== 'fimderedebt'
+                controller.poste.caracteristicaPontoBaixaTensao !==
+                'fimderedebt'
               "
               v-model="controller.poste.anguloBaixaTensao"
               :items="controller.anguloBaixaTensao"
@@ -253,18 +237,11 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn
-          @click="controller.cancelar()"
-          color="red"
-          text
-        >
+        <v-btn @click="controller.cancelar()" color="red" text>
           <v-icon left>mdi-close</v-icon>cancelar
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn
-          @click="controller.salvar()"
-          color="primary"
-        >
+        <v-btn @click="controller.salvar()" color="primary">
           <v-icon left>mdi-content-save</v-icon>salvar
         </v-btn>
       </v-card-actions>
