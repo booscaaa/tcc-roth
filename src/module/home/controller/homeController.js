@@ -30,39 +30,43 @@ class HomeController {
     anguloMediaTensao: null,
     anguloBaixaTensao: null,
     posteExistente: false,
+    temServicoPoste: false
   }
 
   //existente: E, se não: I
 
   tipoDoPoste = [
     {
+      tipo: '(PM)',
       value: 'PMA',
       nome: 'Poste de madeira',
     },
     {
+      tipo: '(DT)',
       value: 'PDT',
       nome: "Poste Duplo 'T'",
     },
     {
+      tipo: '(TC)',
       value: 'PCO',
       nome: 'Poste Tronco Cônico',
     },
   ]
 
-  tipoDoPosteF = [
-    {
-      value: '(PM)',
-      nome: 'Poste de madeira',
-    },
-    {
-      value: '(DT)',
-      nome: "Poste Duplo 'T'",
-    },
-    {
-      value: '(TC)',
-      nome: 'Poste Tronco Cônico',
-    },
-  ]
+  // tipoDoPosteF = [
+  //   {
+  //     value: '(PM)',
+  //     nome: 'Poste de madeira',
+  //   },
+  //   {
+  //     value: '(DT)',
+  //     nome: "Poste Duplo 'T'",
+  //   },
+  //   {
+  //     value: '(TC)',
+  //     nome: 'Poste Tronco Cônico',
+  //   },
+  // ]
 
   tipoDoSolo = [
     {
