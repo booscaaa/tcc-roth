@@ -2,11 +2,12 @@
   <div>
     <v-app-bar app fixed>
       TCC Roth
-      <v-spacer></v-spacer>
        <v-btn color="red" class="mx-2 white--text" @click="controller.limpar()">
         <v-icon left>mdi-delete</v-icon>
         Limpar
       </v-btn>
+      <v-spacer></v-spacer>
+      
       <v-btn color="orange" class="mx-2 white--text" @click="controller.imprimir()">
         <v-icon left>mdi-cloud-print</v-icon>
         Imprimir

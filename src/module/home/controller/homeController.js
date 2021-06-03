@@ -137,7 +137,7 @@ class HomeController {
     {
       value: 4,
       altura: '12',
-      nome: 'Equipamento ou Derivação',
+      nome: 'Equipamento',
     },
   ]
 

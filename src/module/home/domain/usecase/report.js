@@ -116,27 +116,27 @@ class ReportUseCase {
           estruturamed = estruturamedOptions[
             `${tiporede ?? ''}${caractponto ?? ''}${angulomt ?? ''}`
           ]
-            ? estruturamedOptions[
+            ? `-${estruturamedOptions[
             `${tiporede ?? ''}${caractponto ?? ''}${angulomt ?? ''}`
-            ]
-            : 'invalido'
+            ]}`
+            : ''
           estruturabt = estruturabtOptions[
             `${tiporedebt ?? ''}${caractpontobt ?? ''}${angulobt ?? ''}`
           ]
-            ? estruturabtOptions[
+            ? `-${estruturabtOptions[
             `${tiporedebt ?? ''}${caractpontobt ?? ''}${angulobt ?? ''}`
-            ]
-            : 'zero'
+            ]}`
+            : ''
         }
 
         let resultado = `${nponto} ${coordenadax} ${coordenaday} ${tipoposte} ${postepodre} ${linhaviva} ${tiposolo} ${acesso} `
 
         if (poste.temServicoPoste) {
-          resultado += `${altposte}${capposte}-${estruturamed}-${estruturabt}-${tipoEstaiPoste}`
+          resultado += `${altposte}${capposte}${estruturamed}${estruturabt}-${tipoEstaiPoste}`
         }
         report.push([
-          `${resultado} ${poste.posteExistente
-            ? `//${posteexistente}${estruturaexistente}`
+          `${resultado}${poste.posteExistente
+            ? `${posteexistente}${estruturaexistente}`
             : ''
           }`
         ])

@@ -158,7 +158,8 @@
             <div
               v-if="
                 controller.poste.configuracaoDaRede.value == 1 ||
-                controller.poste.configuracaoDaRede.value == 3
+                controller.poste.configuracaoDaRede.value == 3 ||
+                controller.poste.configuracaoDaRede.value == 4
               "
             >
               <v-select
@@ -204,7 +205,8 @@
             <div
               v-if="
                 controller.poste.configuracaoDaRede.value == 1 ||
-                controller.poste.configuracaoDaRede.value == 2
+                controller.poste.configuracaoDaRede.value == 2 ||
+                controller.poste.configuracaoDaRede.value == 4
               "
             >
               <v-select
