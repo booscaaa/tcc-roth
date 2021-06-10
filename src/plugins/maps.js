@@ -5,7 +5,7 @@ export default new (class Maps {
   constructor() {
     Vue.use(VueGoogleMaps, {
       load: {
-        key: "AIzaSyAF4bLiemftWsYkmM45fx_JkTwE4ZMMhK4",
+        key: "",
         // This is required if you use the Autocomplete plugin
         // OR: libraries: 'places,drawing'
         // OR: libraries: 'places,drawing,visualization'
