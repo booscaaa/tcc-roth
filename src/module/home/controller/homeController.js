@@ -312,6 +312,8 @@ class HomeController {
       this.mounted()
 
       this.zerar()
+
+      this.crud.$refs.form.reset()
     }
   }
 
@@ -332,7 +334,8 @@ class HomeController {
   }
 
   imprimir() {
-    this.report.call(this.postes)
+    const pReport = [...this.postes]
+    this.report.call(pReport)
   }
 
   setContext(context) {
@@ -388,6 +391,7 @@ class HomeController {
     localStorage.clear()
 
     this.mounted()
+    this.postes = []
   }
 }
 

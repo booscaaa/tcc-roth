@@ -7,15 +7,22 @@ class ReportUseCase {
   async call(postes) {
     try {
       const report = []
-      for (let poste of postes) {
-        debugger
+      for (let p of postes) {
+        const poste = {...p}
         let nponto = poste.numero
         let coordenadax = poste.latitudeUTM
         let coordenaday = poste.longitudeUTM
         let tipoposte = poste.tipoDoPosteRede ?? poste.tipoDoPoste.value
 
+        let barra = ""
+
         if (poste.posteExistente) {
-          tipoposte += 'E'
+          if (poste.temServicoPoste) {
+            tipoposte += 'I'
+            barra = "//"
+          } else {
+            tipoposte += 'E'
+          }
         } else {
           tipoposte += 'I'
         }
@@ -67,7 +74,7 @@ class ReportUseCase {
           }
 
           if (!tipoestai && esforcoposte.de < 300) {
-            tipoEstaiPoste = 'esd'
+            tipoEstaiPoste = ''
           } else if (!tipoestai) {
             tipoEstaiPoste = 'BC'
           }
@@ -136,81 +143,11 @@ class ReportUseCase {
         }
         report.push([
           `${resultado}${poste.posteExistente
-            ? `${posteexistente}${estruturaexistente}`
+            ? `${barra}${posteexistente}${estruturaexistente}`
             : ''
           }`
         ])
       }
-
-      //   report.unshift(["Descrição"]);
-
-      // var docDefinition = {
-      //   pageMargins: [25, 75, 25, 35],
-      //   header: function(currentPage, pageCount, pageSize) {
-      //     return [
-      //       {
-      //         margin: 10,
-      //         columns: [
-      //           {
-      //             margin: [0, 0, 0, 0],
-      //             text: `Postes`,
-      //             fontSize: 15,
-      //             alignment: 'center',
-      //             bold: true,
-      //           },
-      //         ],
-      //       },
-      //       // {
-      //       //   canvas: [
-      //       //     { type: "line", x1: 0, y1: 10, x2: 5000, y2: 10, lineWidth: 1 },
-      //       //   ],
-      //       // },
-      //     ]
-      //   },
-      //   footer: function(currentPage, pageCount) {
-      //     return {
-      //       margin: 10,
-      //       columns: [
-      //         {
-      //           fontSize: 9,
-      //           text: [
-      //             {
-      //               text:
-      //                 '© TCC Roth ' +
-      //                 currentPage.toString() +
-      //                 ' de ' +
-      //                 pageCount +
-      //                 ' | ' +
-      //                 moment().format('DD/MM/YYYY - HH:mm'),
-      //             },
-      //           ],
-      //           alignment: 'center',
-      //         },
-      //       ],
-      //     }
-      //   },
-      //   pageOrientation: 'landscape',
-      //   content: [
-      //     {
-      //       margin: [0, 0, 0, 10],
-      //       layout: {
-      //         fillColor: function(rowIndex, node, columnIndex) {
-      //           if (rowIndex == 0) {
-      //             return null
-      //           }
-      //           return rowIndex % 2 == 0 ? null : '#e5e5e5'
-      //         },
-      //       },
-      //       fontSize: 10,
-      //       table: {
-      //         headerRows: 1,
-      //         widths: ['*'],
-      //         body: report,
-      //       },
-      //     },
-      //   ],
-      // }
-      // pdfMake.createPdf(docDefinition).open()
 
       this._download(report.join('\n'), 'postes.txt', 'text/plain')
     } catch (error) {
